@@ -9,7 +9,7 @@ Given that the three characters are always asked for in order, analyse the file 
 
 class Problem79
   vet = []
-  File.open("C:\\Users\\cristiano.modesto\\RubymineProjects\\ProjectEuler\\problem79_keylog.txt", "r") do |f|
+  File.open("path\\problem79_keylog.txt", "r") do |f|
     f.each_line do |line|
       vet << line[0..2].split("")
     end
