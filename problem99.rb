@@ -10,7 +10,7 @@ NOTE: The first two lines in the file represent the numbers in the example given
 
 class Problem99
   vet = []
-  File.open("C:\\Users\\cristiano.modesto\\RubymineProjects\\ProjectEuler\\problem99_base_exp.txt", "r") do |f|
+  File.open("myPath\\problem99_base_exp.txt", "r") do |f|
     f.each_line do |line|
       vet << line.delete("\n").split(",").map(&:to_i)
     end
