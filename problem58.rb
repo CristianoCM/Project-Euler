@@ -18,41 +18,47 @@ require 'prime'
 
 class Problem58
   
-  # Proporção de crescimento: 1 8 16 24 36 ...
-  # Proporção de números pulados para chegar na diagonal: 0 1 3 5 7 ...
-  mul = 1
-  nums = [1]
-  num_now = 1
+  #----------------------------------------------------------------------------------------
+  # Diagonais
+  #----------------------------------------------------------------------------------------
+  # Inferior Direita:  1 9 25 49 -> √1 = 1, √9 = 3, √25 = 5, √49 = 7 | 0 +8 +16 +24 (+8)
+  # Inferior Esquerda: 1 7 21 43 -> 0 +6 +14 +22 (+8)
+  # Superior Direita:  1 3 13 31 57 91 -> 0 +2 +10 +18 +26 +34 (+8)
+  # Superior Esquerda: 1 5 17 37 65 101 -> 0 +4 +12 +20 +28 +36 (+8)
+  #----------------------------------------------------------------------------------------
+  
+  diag_2 = 3; plus_2 = 2
+  diag_4 = 5; plus_4 = 4
+  diag_6 = 7; plus_6 = 6
+  diag_8 = 9; plus_8 = 8
   side_length = 1
-  diag = 8
   diagonals = [1]
   primes_diagonals = []
   prime_ratio = 100
   
-  until prime_ratio < 30
-  
-    diag_prop = side_length
-    diag.times{
-      num_now += 1
-      nums << num_now
-      if diag_prop == 0
-        diagonals << num_now
-        primes_diagonals << num_now if Prime.prime?(num_now)
-        diag_prop = side_length
-      else
-        diag_prop -= 1
-      end
-    }
-    mul += 1
-    side_length += 2
-    diag = 8 * mul
+  until prime_ratio < 10
+
+    diagonals << diag_2
+    diagonals << diag_4
+    diagonals << diag_6
+    diagonals << diag_8
     
-    prime_ratio = ((primes_diagonals.size / diagonals.size.to_f) * 100).round
+    primes_diagonals << diag_2 if Prime.prime?(diag_2)
+    primes_diagonals << diag_4 if Prime.prime?(diag_4)
+    primes_diagonals << diag_6 if Prime.prime?(diag_6)
+    #primes_diagonals << diag_8 if Prime.prime?(diag_8)  -> Vai ter sempre raíz, ou seja, não é primo
+    
+    plus_2 += 8; diag_2 += plus_2
+    plus_4 += 8; diag_4 += plus_4
+    plus_6 += 8; diag_6 += plus_6
+    plus_8 += 8; diag_8 += plus_8
+
+    side_length += 2
+    
+    prime_ratio = (primes_diagonals.size / diagonals.size.to_f) * 100
     
   end
   
   p "Diagonal size: " + side_length.to_s, "Prime diagonal ratio: " + primes_diagonals.size.to_s + "/" + diagonals.size.to_s + " = " + prime_ratio.to_s + "%"
-  
-  #p "All sequence: " + nums.to_s, "Diagonal size: " + side_length.to_s, "Diagonals: " + diagonals.to_s, "Primes diagonals: " + primes_diagonals.to_s, "Prime diagonal ratio: " + primes_diagonals.size.to_s + "/" + diagonals.size.to_s + " = " + prime_ratio.to_s + "%"
   
 end
